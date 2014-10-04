@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 
 import os
 
-engine = create_engine(os.environ.get("HEROKU_POSTGRESQL_ORANGE_URL", "postgres://pdvxuefuwwxotp:6p_RAHUaJa4ClWP20EGsHbISJe@ec2-54-243-42-236.compute-1.amazonaws.com:5432/d62ri4ks7m4d6"), echo=True)
+engine = create_engine(os.environ.get("HEROKU_POSTGRESQL_CHARCOAL_URL", "postgres://pdvxuefuwwxotp:6p_RAHUaJa4ClWP20EGsHbISJe@ec2-54-243-42-236.compute-1.amazonaws.com:5432/d62ri4ks7m4d6"), echo=True)
 
 Base = declarative_base()
 

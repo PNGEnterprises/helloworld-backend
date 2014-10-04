@@ -23,7 +23,6 @@ def get_message():
 		return '{"error":"latLocation"}'
 
 	message = getFromDatabase(latLocation, lonLocation)
-	print message
 	return message
 
 @app.route("/api/v1/post-message", methods=['POST'])

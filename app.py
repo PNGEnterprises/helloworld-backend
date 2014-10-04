@@ -2,7 +2,7 @@ import os
 import json
 from flask import Flask
 from flask import request
-from datetime import datetime
+import time
 app = Flask(__name__)
 
 @app.route("/")
@@ -46,8 +46,7 @@ def post_message():
 	if(len(message) > 200):
 		return '{"error":"message", "message":"Message must be 200 characters or less"}'
 
-	timeLogged = datetime.utcnow()
-	print timeLogged
+	timeLogged = int(time.time())
 	if(writeToDatabase(latLocation, lonLocation, message, timeLogged)):
 		return '{"error":"success"}'
 	else:

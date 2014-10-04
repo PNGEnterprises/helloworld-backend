@@ -1,6 +1,7 @@
 import os
-
+import json
 from flask import Flask
+from flask import request
 app = Flask(__name__)
 
 @app.route("/")
@@ -9,7 +10,9 @@ def hello():
 
 @app.route("/api/v1/get-message", methods=['POST'])
 def get_message():
-	return "You got a message"
+	data = json.loads(request.data)
+	print data
+	return str(data["latLocation"])
 
 @app.route("/api/v1/post-message", methods=['POST'])
 def post_message():

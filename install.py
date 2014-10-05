@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, Time, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from geoalchemy2 import Geometry
 
 import os
 
@@ -13,8 +14,7 @@ class Message(Base):
 
 	#basic fields
 	id = Column(Integer, primary_key=True)
-	latLocation = Column(Float, nullable=False)
-	lonLocation = Column(Float, nullable=False)
+	location = Column(Geometry('Point'))
 	message = Column(String, nullable=False)
 	timeLogged = Column(DateTime, nullable=False)
 	

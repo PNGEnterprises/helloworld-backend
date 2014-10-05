@@ -5,7 +5,7 @@ from geoalchemy2 import Geometry
 
 import os
 
-engine = create_engine(os.environ.get("HEROKU_POSTGRESQL_CHARCOAL_URL", "postgres://pdvxuefuwwxotp:6p_RAHUaJa4ClWP20EGsHbISJe@ec2-54-243-42-236.compute-1.amazonaws.com:5432/d62ri4ks7m4d6"), echo=True)
+engine = create_engine("postgres://postgres:time4login@104.131.73.180/helloworld", echo=True)
 
 Base = declarative_base()
 
@@ -14,7 +14,7 @@ class Message(Base):
 
 	#basic fields
 	id = Column(Integer, primary_key=True)
-	location = Column(Geometry('POINT'))
+	location = Column(Geometry(geometry_type='POINT', srid=4326))
 	message = Column(String, nullable=False)
 	timeLogged = Column(DateTime, nullable=False)
 	

@@ -8,4 +8,8 @@ curl -X POST -H "Content-Type: application/json" 127.0.0.1:5000/api/v1/post-mess
 
 curl -X POST -H "Content-Type: application/json" 127.0.0.1:5000/api/v1/post-message -d '{"latLocation":0.0, "lonLocation":0.0, "message":"This is message is at the origin"}'
 
-curl -X POST -H "Content-Type: application/json" 127.0.0.1:5000/api/v1/post-message -d '{"latLocation":0.0, "lonLocation":0.013554, "message":"This is message is at the origin but not exactly on it"}'
+curl -X POST -H "Content-Type: application/json" 127.0.0.1:5000/api/v1/post-message -d '{"latLocation":0.0, "lonLocation":0.000224, "message":"This is message is at the origin but not exactly on it"}'
+
+curl -X POST -H "Content-Type: application/json" 127.0.0.1:5000/api/v1/post-message -d '{"latLocation":0.0, "lonLocation":0.000226, "message":"This is message is at the origin but just past the boundry"}'
+
+curl -X POST -H "Content-Type: application/json" 127.0.0.1:5000/api/v1/get-messages -d '{"latLocation":0.0, "lonLocation":0.0}'

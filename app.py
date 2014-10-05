@@ -1,8 +1,8 @@
 import os
 import json
+import time
 from flask import Flask
 from flask import request
-from datetime import datetime
 from data_handler import insert, query
 app = Flask(__name__)
 
@@ -11,7 +11,7 @@ def hello():
     return "Hello World!"
 
 @app.route("/api/v1/get-messages", methods=['POST'])
-def get_message():
+def get_messages():
 	data = json.loads(request.data)
 	try:
 		latLocation = data["latLocation"]
@@ -23,14 +23,17 @@ def get_message():
 	except:
 		return '{"error":"latLocation"}'
 
-	messages = query(latLocation, lonLocation)
+	try:
+		messages = query(latLocation, lonLocation)
+	except:
+		return '{"error":"database"}'
 
+	print messages
 	return json.dumps({"error":"success", "messages":messages})
 
 @app.route("/api/v1/post-message", methods=['POST'])
 def post_message():
 	data = json.loads(request.data)
-	print data
 	if(not("latLocation" in data.keys())):
 		return '{"error":"latLocation"}'
 
@@ -43,7 +46,7 @@ def post_message():
 	if(len(data["message"]) > 200):
 		return '{"error":"message", "message":"Message must be 200 characters or less"}'
 
-	timeLogged = datetime.utcnow()
+	timeLogged = time.time()
 	if(insert(data, timeLogged)):
 		return '{"error":"success"}'
 	else:

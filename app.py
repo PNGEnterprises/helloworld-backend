@@ -28,8 +28,15 @@ def get_messages():
 	except:
 		return '{"error":"database"}'
 
-	print messages
-	return json.dumps({"error":"success", "messages":messages})
+	serialized = []
+	for m in messages:
+		s = {}
+		s["latLocation"] = m[1]
+		s["lonLocation"] = m[2]
+		s["message"] = m[3]
+		serialized.append(s)
+
+	return json.dumps({"error":"success", "messages":serialized})
 
 @app.route("/api/v1/post-message", methods=['POST'])
 def post_message():

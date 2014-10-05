@@ -54,8 +54,7 @@ def query(lat, lng):
         found = session.query(Message.id,
                 func.ST_Y(Message.location),
                 func.ST_X(Message.location),
-                Message.message,
-                Message.timeLogged.isoformat()).filter(func.ST_DWithin(Message.location, center, 0.000225)).all()
+                Message.message).filter(func.ST_DWithin(Message.location, center, 0.000225)).all()
     except:
         raise Exception("Error querying database.")
 

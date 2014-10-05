@@ -2,7 +2,7 @@ import os
 import json
 from flask import Flask
 from flask import request
-import time
+from datetime import datetime
 from sqlalchemy import func
 app = Flask(__name__)
 
@@ -23,41 +23,34 @@ def get_message():
 	except:
 		return '{"error":"latLocation"}'
 
-	message = getFromDatabase(latLocation, lonLocation)
-	return message
+	message = query(latLocation, lonLocation)
+	return json.dumps(message)
 
 @app.route("/api/v1/post-message", methods=['POST'])
 def post_message():
 	data = json.loads(request.data)
-	try:
-		latLocation = data["latLocation"]
-	except:
+	if(not("latLocation" in data.keys())):
 		return '{"error":"latLocation"}'
 
-	try:
-		lonLocation = data["lonLocation"]
-	except:
+	if(not("lonLocation" in data.keys())):
 		return '{"error":"lonLocation"}'
 
-	try:
-		message = data["message"]
-	except:
+	if(not("message" in data.keys())):
 		return '{"error":"message"}'
 
 	if(len(message) > 200):
 		return '{"error":"message", "message":"Message must be 200 characters or less"}'
 
-	timeLogged = int(time.time())
-	if(writeToDatabase(latLocation, lonLocation, message, timeLogged)):
+	timeLogged = datetime.utcnow()
+	if(insert(data, timeLogged)):
 		return '{"error":"success"}'
 	else:
 		return '{"error":"database"}'
 
-def getFromDatabase(latLocation, lonLocation):
-	return '{"latLocation":147.254,"lonLocation":87.698,"message":"Hello, World!","timeLogged":123456}'
+def query(latLocation, lonLocation):
+	return [{"latLocation":147.254,"lonLocation":87.698,"message":"Hello, World!","timeLogged":123456},{"latLocation":120.765,"lonLocation":78.123,"message":"Hello, JAKEH!","timeLogged":789045}]
 
-def writeToDatabase(latLocation, lonLocation, message, timeLogged):
-	func.ST_MakePoint(lonLocation, latLocation)
+def insert(latLocation, lonLocation, message, timeLogged):
 	return 1;
 
 if __name__ == "__main__":

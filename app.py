@@ -3,14 +3,14 @@ import json
 from flask import Flask
 from flask import request
 from datetime import datetime
-from data_handler import query, insert
+from data_handler import insert, query
 app = Flask(__name__)
 
 @app.route("/")
 def hello():
     return "Hello World!"
 
-@app.route("/api/v1/get-message", methods=['POST'])
+@app.route("/api/v1/get-messages", methods=['POST'])
 def get_message():
 	data = json.loads(request.data)
 	try:
@@ -23,8 +23,9 @@ def get_message():
 	except:
 		return '{"error":"latLocation"}'
 
-	message = query(latLocation, lonLocation)
-	return json.dumps(message)
+	messages = query(latLocation, lonLocation)
+
+	return json.dumps({"error":"success", "messages":messages})
 
 @app.route("/api/v1/post-message", methods=['POST'])
 def post_message():

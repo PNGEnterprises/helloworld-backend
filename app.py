@@ -4,6 +4,8 @@ from flask import Flask
 from flask import request
 from datetime import datetime
 from sqlalchemy import func
+from data_handler import query
+from data_handler import insert
 app = Flask(__name__)
 
 @app.route("/")

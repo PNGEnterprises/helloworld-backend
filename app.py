@@ -3,6 +3,7 @@ import json
 from flask import Flask
 from flask import request
 import time
+from sqlalchemy import func
 app = Flask(__name__)
 
 @app.route("/")
@@ -56,6 +57,7 @@ def getFromDatabase(latLocation, lonLocation):
 	return '{"latLocation":147.254,"lonLocation":87.698,"message":"Hello, World!","timeLogged":123456}'
 
 def writeToDatabase(latLocation, lonLocation, message, timeLogged):
+	func.ST_MakePoint(lonLocation, latLocation)
 	return 1;
 
 if __name__ == "__main__":

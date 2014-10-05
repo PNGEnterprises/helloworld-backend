@@ -14,7 +14,7 @@ class Message(Base):
 
 	#basic fields
 	id = Column(Integer, primary_key=True)
-	location = Column(Geometry('Point'))
+	location = Column(Geometry('POINT'))
 	message = Column(String, nullable=False)
 	timeLogged = Column(DateTime, nullable=False)
 	

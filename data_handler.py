@@ -44,6 +44,13 @@ def insert(params, time):
 # within the specified radius of the provided
 # lat and lng (radius is in meters?)
 def query(lat, lng):
-    radius = 25   # 25 meter radius
-    pass
+    radius = 0.000225   # approx 25 meter radius, no adjustment for distortions in lat/lng
+
+    try:
+        center = func.ST.SetSRID(func.ST_MakePoint(lng, lat))
+        found = session.query(Message, func.ST_DWithin(Message.location, center, radius)).all()
+    except:
+        found = []
+
+    return found
 

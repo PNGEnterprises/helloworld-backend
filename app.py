@@ -4,8 +4,7 @@ from flask import Flask
 from flask import request
 from datetime import datetime
 from sqlalchemy import func
-from data_handler import query
-from data_handler import insert
+from data_handler import query, insert
 app = Flask(__name__)
 
 @app.route("/")
@@ -49,10 +48,10 @@ def post_message():
 	else:
 		return '{"error":"database"}'
 
-def query(latLocation, lonLocation):
+def query_stub(latLocation, lonLocation):
 	return [{"latLocation":147.254,"lonLocation":87.698,"message":"Hello, World!","timeLogged":123456},{"latLocation":120.765,"lonLocation":78.123,"message":"Hello, JAKEH!","timeLogged":789045}]
 
-def insert(latLocation, lonLocation, message, timeLogged):
+def insert_stub(latLocation, lonLocation, message, timeLogged):
 	return 1;
 
 if __name__ == "__main__":

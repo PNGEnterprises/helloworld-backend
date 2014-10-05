@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, Time, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, Time, ForeignKey, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from geoalchemy2 import Geometry
@@ -31,5 +31,5 @@ class Message(Base):
 	requireMessage = relationship("Message")
 
 	def __repr__(self):
-		return "<Message([%s] at (%f, %f) '%s'>" % (
-			(str(self.id) if self.id else 'None'), self.latLocation, self.lonLocation, self.message)
+		return "<Message([%s] '%s'>" % (
+			(str(self.id) if self.id else 'None'), self.message)

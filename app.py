@@ -56,7 +56,7 @@ def getFromDatabase(latLocation, lonLocation):
 	return '{"latLocation":147.254,"lonLocation":87.698,"message":"Hello, World!","timeLogged":123456}'
 
 def writeToDatabase(latLocation, lonLocation, message, timeLogged):
-	return 0;
+	return 1;
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

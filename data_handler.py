@@ -12,32 +12,32 @@ Session = sessionmaker(bind=engine)
 def insert(params, time):
     session = Session()
 
-    expiration = parser.parse(params['expiration'])
-    start      = parser.parse(params['start'])
-    start      = time(start.hour, start.minute, start.second, start.microsecond)
-    end        = parser.parse(params['end'])
-    end        = time(end.hour, end.minute, end.second, end.microsecond)
+    #expiration = parser.parse(params['expiration'])
+    #start      = parser.parse(params['start'])
+    #start      = time(start.hour, start.minute, start.second, start.microsecond)
+    #end        = parser.parse(params['end'])
+    #end        = time(end.hour, end.minute, end.second, end.microsecond)
 
     message = Message()
     try:
         message.location = func.ST_MakePoint(params['lonLocation'], params['latLocation'])
         message.message = params['message']
         message.timeLogged = time
-        message.expireTime = expiration
-        message.beginTime = start
-        message.endTime = end
-        message.daysVisible = params['days']
-        message.requiredMessageId = params['requiredId']
+        #message.expireTime = expiration
+        #message.beginTime = start
+        #message.endTime = end
+        #message.daysVisible = params['days']
+        #message.requiredMessageId = params['requiredId']
     except:
-        return false
+        return False
 
     try:
         session.add(message)
         session.commit()
     except:
-        return false
+        return False
 
-    return true
+    return True
 
 
 # Queries for a list of messages that are

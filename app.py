@@ -3,7 +3,6 @@ import json
 from flask import Flask
 from flask import request
 from datetime import datetime
-from sqlalchemy import func
 from data_handler import query, insert
 app = Flask(__name__)
 
@@ -30,6 +29,7 @@ def get_message():
 @app.route("/api/v1/post-message", methods=['POST'])
 def post_message():
 	data = json.loads(request.data)
+	print data
 	if(not("latLocation" in data.keys())):
 		return '{"error":"latLocation"}'
 
@@ -39,7 +39,7 @@ def post_message():
 	if(not("message" in data.keys())):
 		return '{"error":"message"}'
 
-	if(len(message) > 200):
+	if(len(data["message"]) > 200):
 		return '{"error":"message", "message":"Message must be 200 characters or less"}'
 
 	timeLogged = datetime.utcnow()
@@ -51,8 +51,9 @@ def post_message():
 def query_stub(latLocation, lonLocation):
 	return [{"latLocation":147.254,"lonLocation":87.698,"message":"Hello, World!","timeLogged":123456},{"latLocation":120.765,"lonLocation":78.123,"message":"Hello, JAKEH!","timeLogged":789045}]
 
-def insert_stub(latLocation, lonLocation, message, timeLogged):
+def insert_stub(data, timeLogged):
 	return 1;
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+	app.debug = True
+	app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

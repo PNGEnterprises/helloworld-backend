@@ -21,7 +21,7 @@ def get_messages():
 	try:
 		lonLocation = data["lonLocation"]
 	except:
-		return '{"error":"latLocation"}'
+		return '{"error":"lonLocation"}'
 
 	try:
 		messages = query(latLocation, lonLocation)
@@ -34,6 +34,7 @@ def get_messages():
 		s["latLocation"] = m[1]
 		s["lonLocation"] = m[2]
 		s["message"] = m[3]
+		s["timeLogged"] = m[4].isoformat()
 		serialized.append(s)
 
 	return json.dumps({"error":"success", "messages":serialized})

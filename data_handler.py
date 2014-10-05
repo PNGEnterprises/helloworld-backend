@@ -20,7 +20,7 @@ def insert(params, time):
 
     message = Message()
     try:
-        message.location = func.ST_MakePoint(params['lonLocation'], params['latLocation'])
+        message.location = func.ST_SetSRID(func.ST_MakePoint(params['lonLocation'], params['latLocation']), 4326)
         message.message = params['message']
         message.timeLogged = time
         #message.expireTime = expiration

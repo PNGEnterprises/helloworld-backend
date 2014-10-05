@@ -1,0 +1,11 @@
+curl -X POST -H "Content-Type: application/json" 127.0.0.1:5000/api/v1/post-message -d '{"latLocation":147.254, "lonLocation":87.698, "message":"This is a message"}'
+
+curl -X POST -H "Content-Type: application/json" 127.0.0.1:5000/api/v1/post-message -d '{"latLocation":147.254, "lonLocation":87.698, "message":"This is a message with the other message"}'
+
+curl -X POST -H "Content-Type: application/json" 127.0.0.1:5000/api/v1/post-message -d '{"latLocation":1.254, "lonLocation":8.698, "message":"This message is solitary"}'
+
+curl -X POST -H "Content-Type: application/json" 127.0.0.1:5000/api/v1/post-message -d '{"latLocation":1.254, "lonLocation":50.698, "message":"This message is also solitary"}'
+
+curl -X POST -H "Content-Type: application/json" 127.0.0.1:5000/api/v1/post-message -d '{"latLocation":0.0, "lonLocation":0.0, "message":"This is message is at the origin"}'
+
+curl -X POST -H "Content-Type: application/json" 127.0.0.1:5000/api/v1/post-message -d '{"latLocation":0.0, "lonLocation":0.013554, "message":"This is message is at the origin but not exactly on it"}'

@@ -51,7 +51,11 @@ def query(lat, lng):
 
     try:
         center = func.ST_SetSRID(func.ST_MakePoint(lng, lat), 4326)
-        found = session.query(Message).filter(func.ST_DWithin(Message.location, center, 0.000225)).all()
+        found = session.query(Message.id,
+                func.ST_Y(Message.location),
+                func.ST_X(Message.location),
+                Message.message,
+                Message.timeLogged).filter(func.ST_DWithin(Message.location, center, 0.000225)).all()
     except:
         raise Exception("Error querying database.")
 
